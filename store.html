@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+   
+  </head>
+<body>
+    <div class="container">
+        <div class="main">
+            <div class="inputdata">
+                <div class="inputdata1">
+                <input id= "input1" type="text" class="input"> </input>
+                <button id="btn" class="button">
+                    <i class="fa-solid fa-cart-plus fa-2x"></i>
+                </button>
+            </div>
+            <div class="fonts1">
+                <i id = "q1" class="fa-brands fa-google fa-2x"></i>
+                <i id = "q2"  class="fa-brands fa-facebook fa-2x"></i>
+            </div>
+            
+        </div>
+        <div class="displaydata"> 
+            <div class ="showbox">
+                <ul id="list">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+<script>
+var ele =document.getElementById("btn")
+ele.addEventListener("click", display);
+
+
+arraydata =[]
+
+function display() {
+  var indata = document.getElementById("input1").value
+//   console.log(indata) 
+  var appendul = document.getElementById("list")
+   var createli = document.createElement("li")
+    var node = document.createTextNode(indata)
+    arraydata.push(indata);
+    var v = localStorage.setItem("data",JSON.stringify(arraydata))
+    // console.log(v)
+    createli.appendChild(node)
+    appendul.appendChild(createli)
+    
+
+        
+
+
+   
+   var x1 = document.getElementById(createli.id)
+   var createbtn1 = document.createElement("button")
+   var createbtn2 = document.createElement("button")
+   var node1 = document.createTextNode("edit")
+   var node2 = document.createTextNode("remove")
+   createbtn1.appendChild(node1)
+   createbtn2.appendChild(node2) 
+   createbtn2.id = "remove"
+   createli.appendChild(createbtn1)
+   createli.appendChild(createbtn2)
+    
+   createbtn1.style.marginLeft = "60px";
+   createbtn1.style.border = "solid black";
+   createbtn1.style.backgroundColor = "coral";
+   createbtn2.style.marginRight = "20px";
+   createbtn2.style.border = "solid black";
+   createbtn2.style.backgroundColor = "coral";
+   createbtn2.addEventListener("click", myFunction1);
+   function myFunction1() {
+    this.closest('li').remove();
+     alert("hi")
+   }
+
+
+   createbtn1.addEventListener("click", myFunction2);
+   function myFunction2() {
+   this.closest('li').childNodes[0].textContent = " "
+
+   var createbtn3 = document.createElement("input")
+   var node3 = document.createTextNode("NEW")
+   createbtn3.appendChild(node3) 
+   createbtn3.style.marginRight = "10px";
+   createli.appendChild(createbtn3)
+
+   var createbtn4 = document.createElement("BUTTON")
+   var node4 = document.createTextNode("SAVE")
+   createbtn4.appendChild(node4) 
+   createbtn4.style.marginRight = "10px";
+   createli.appendChild(createbtn4)
+  
+   createbtn4.addEventListener("click", myFunction3)
+   function myFunction3() {
+    console.log(createbtn3.value);
+    this.closest('li').childNodes[0].textContent = createbtn3.value;
+    createbtn3.remove();
+    createbtn4.remove();
+   }
+
+ 
+
+
+
+   }
+document.getElementById("input1").value = " "
+}
+
+window.onload  = function () {
+
+  var x = JSON.parse(localStorage.getItem('data'));
+  console.log(x)
+  console.log(typeof x)
+    var ul = document.getElementById('list');
+    if(x.length > 0) {
+          x.forEach((element, index) => {
+            console.log(index);
+            var li = `<li>${element}</li>`;
+  ul.insertAdjacentHTML('beforeend', li);
+  var createbtn1 = document.createElement("button")
+   var createbtn2 = document.createElement("button")
+   var node1 = document.createTextNode("edit")
+   var node2 = document.createTextNode("remove")
+   createbtn1.appendChild(node1)
+   createbtn2.appendChild(node2) 
+   
+   ul.appendChild(createbtn1)
+   ul.appendChild(createbtn2)
+
+   for(a in x) {
+    console.log(x[a]);
+   }
+   
+});
+    }
+}
+
+
+    </script>
+    
+</body>
+</html>
